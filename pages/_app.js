@@ -90,14 +90,14 @@ function MyApp({ Component, pageProps, consentCookie, setConsentCookie, resetCoo
           <ConsentCookie consentCookie={consentCookie} setConsentCookie={setConsentCookie} resetCookie={resetCookie}/>
         </div>
         {(fullscreen.toLowerCase() !== "false" || isIFrame())  ? 
-          <Container id={"main"} maxWidth={"xl"} style={{background: "#fff", marginTop: 10}}>
+              <Container id={"main"} maxWidth={"xl"} style={{ background: "#fff", marginTop: 10}}>
             <Component 
               {...pageProps}
             />
           </Container>
           :
-          <div style={{backgroundColor: ((schema || {}).ui || {}).background || "#C5F8F8"}}  id={"main"}>
-            <Container maxWidth={"lg"} style={{background: "#fff", padding: 0, flexGrow: 1, display: "flex", flexDirection: "column"}}>
+              <div style={{ backgroundColor: ((schema || {}).ui || {}).background || "#F4DECB"}}  id={"main"}>
+                  <Container maxWidth={"md"} style={{ background: "#fff", padding: 0, flexGrow: 1, display: "flex", flexDirection: "column"}}>
               <Header {...pageProps}/>
               <div className='container'>
                 <Component 

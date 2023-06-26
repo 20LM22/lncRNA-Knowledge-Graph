@@ -77,7 +77,7 @@ export const fetch_kg_schema = async () => {
 		}
 		schema = await r.json()
 	}
-	
+	// console.log(schema)
 	return schema
   }
 
@@ -114,6 +114,7 @@ export const initialize_kg = async () => {
 	}
   }
 
+  // console.log(edges)
   
   return {
   	    entries,
@@ -137,7 +138,18 @@ export const initialize_enrichment = async () => {
 		icon_picker
 	}
 }
+
+export const initialize_libraries = async () => {
+
+}
+
+export const initialize_help = async () => {
+
+}
+
 export const init_function = {
 	initialize_kg,
-	initialize_enrichment
+	initialize_enrichment,
+	initialize_libraries,
+	initialize_help
 }

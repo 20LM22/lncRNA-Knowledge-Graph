@@ -97,7 +97,7 @@ const styles = {
 	},
 	active: {
 		opacity: 1,
-		background: "#e0e0e0",
+		background: "#e0e0e0", // background color?
 		"&:hover": {
 			background: "#9e9e9e",
 		},
@@ -241,9 +241,9 @@ const Header = ({schema, ...rest}) => {
 	if (schema === undefined || schema.header === undefined) return null
 	
 	return(
-	<Grid container justifyContent="center" style={schema.header.style}>
-		<Grid item xs={12} align="center">
-			<Grid container justifyContent={"space-between"} alignItems={"center"} style={{padding: 15, marginBottom: 10, background:( schema.header.background || {}).backgroundColor}}>
+	<Grid container direction="column" justifyContent="left" style={schema.header.style}>
+		<Grid item xs={12} align="left">
+			<Grid container direction="column" justifyContent={"space-between"} alignItems={"left"} style={{padding: 15, marginBottom: 10, background: "#F8EEE7"}}>
 				<Grid item>
 					<Button href={`${process.env.NEXT_PUBLIC_PREFIX || "/"}`}>
 						<Stack direction={"row"} alignItems="center">
@@ -258,11 +258,11 @@ const Header = ({schema, ...rest}) => {
 									alt={makeTemplate(schema.header.icon.alt, {})}
 								/>
 							</div>
-							<Typography variant="h4">{parse(schema.header.title)}</Typography>
+							<Typography variant="h4" color="#49274A">{parse(schema.header.title)}</Typography>
 						</Stack>
 					</Button>
 				</Grid>
-				<Grid item align="left">
+				<Grid item align="right">
 					<Stack direction={"row"} alignItems="center">
 					<Counter fontColor={(schema.header.background || {}).contrastText || "#000"}/>
 					{schema.header.tabs && 

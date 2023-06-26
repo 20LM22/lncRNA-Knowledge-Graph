@@ -32,7 +32,7 @@ const FooterContents = ({footer, key, schema, consentCookie, setConsentCookie, r
 							target="_blank" rel="noopener noreferrer"
 							style={{textTransform: "none", color: (schema.ui || {}).footer_buttons === "light" ? "#000": "#FFF"}}
 						>
-							<Typography variant="subtitle2" color="#FFF">Github Repository</Typography>
+							<Typography variant="subtitle2" color="#000">Github Repository</Typography>
 						</Button>
 					</Grid>
 					<Grid item>
@@ -43,7 +43,7 @@ const FooterContents = ({footer, key, schema, consentCookie, setConsentCookie, r
 							target="_blank" rel="noopener noreferrer"
 							style={{textTransform: "none", color: (schema.ui || {}).footer_buttons === "light" ? "#000": "#FFF"}}
 						>
-							<Typography variant="subtitle2" color="#FFF">Report a Bug</Typography>
+							<Typography variant="subtitle2" color="#000">Report a Bug</Typography>
 						</Button>
 					</Grid>
 					<Grid item>
@@ -60,7 +60,7 @@ const FooterContents = ({footer, key, schema, consentCookie, setConsentCookie, r
 							}}
 							style={{textTransform: "none", color: (schema.ui || {}).footer_buttons === "light" ? "#000": "#FFF"}}
 						>
-							<Typography variant="subtitle2" color="#FFF">{consentCookie === 'allow' ? 'Disable Google Analytics': 'Enable Google Analytics'}</Typography>
+							<Typography variant="subtitle2" color="#000">{consentCookie === 'allow' ? 'Disable Google Analytics': 'Enable Google Analytics'}</Typography>
 						</Button>
 					</Grid>
 					{/* <Grid item>
@@ -113,7 +113,7 @@ const Footer = ({schema, consentCookie, setConsentCookie, resetCookie}) => {
     return (
         <Paper square style={{boxShadow: "none",
 			minHeight: 180,
-			background: (schema.ui || {}).footer_background || "#000",
+			background: (schema.ui || {}).footer_background || "#FFF", // change footer background color, was #000 (black)
 			flexShrink: 0,
 			paddingTop: 30,
 			paddingBottom: 30,

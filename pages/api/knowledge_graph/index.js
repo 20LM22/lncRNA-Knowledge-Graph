@@ -381,9 +381,17 @@ const resolve_one_term = async ({session, start, field, term, relation, limit, o
 			...acc,
 			...i.match
 		  ]), [])
-		const rels = []
+	const rels = []
+		// console.log("edges: " + edges) good up to here
+		// console.log("the relation is: " + relation)
+	// console.log("edges: " + edges) //edges is fine
+	// console.log("relation: " + relation) //relation is not, missing the plus
+	// terms = relation.split(",")
+	// console.log("terms: " + terms)
+
 		if (relation) {
-			for (const i of relation.split(",")) {
+			for (const i of relation.split(",")) { // THIS IS THE PROBLEM
+				// console.log("each i is: " + i)
 				if (edges.indexOf(i) === -1) throw {message: `Invalid relationship ${i}`}
 				rels.push(`\`${i}\``)
 			}
@@ -533,10 +541,13 @@ const resolve_one_term = async ({session, start, field, term, relation, limit, o
 }
 
 export default async function query(req, res) {
-  const { start, start_field="label", start_term, end, end_field="label", end_term, relation, limit=25, path_length, order, remove, expand, gene_links, augment, augment_limit } = await req.query
-  const schema = await (await fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/knowledge_graph/schema`)).json()
-  const {aggr_scores, colors} = await (await fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/knowledge_graph/aggregate`)).json()
-  const nodes = schema.nodes.map(i=>i.node)
+	const { start, start_field = "label", start_term, end, end_field = "label", end_term, relation, limit = 25, path_length, order, remove, expand, gene_links, augment, augment_limit } = await req.query
+	// console.log(await req.query)
+	const schema = await (await fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/knowledge_graph/schema`)).json()
+	// console.log(schema)
+	const { aggr_scores, colors } = await (await fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/knowledge_graph/aggregate`)).json()
+	const nodes = schema.nodes.map(i => i.node)
+	// console.log("the relations is: " + relation) // where is relation coming from?
   if (nodes.indexOf(start) < 0) res.status(400).send("Invalid start node")
   else if (end && nodes.indexOf(end) < 0) res.status(400).send("Invalid end node")
   else { 
@@ -546,17 +557,21 @@ export default async function query(req, res) {
 		})
 		try {
 			if (start && end && start_term && end_term) {
-				if(augment)  res.status(400).send("You can only augment on single search")
+				if (augment) res.status(400).send("You can only augment on single search")
+				// console.log("found!")
+				// console.log("the relations is: " + relation)
 				const results = await resolve_two_terms({session, start_term, start_field, start, end_term, end_field, end, relation, limit, path_length, schema, order, aggr_scores, colors, remove: remove ?  JSON.parse(remove): [], expand: expand ? JSON.parse(expand) : [], gene_links})
 				fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/counter/update`)
 				res.status(200).send(results)
 			} else if (start && end && start_term ) {
-				if(augment)  res.status(400).send("You can only augment on single search")
+				// console.log("i'm here!")
+				if (augment) res.status(400).send("You can only augment on single search")
 				const results = await resolve_term_and_end_type({session, start_term, start_field, start, end, relation, limit, path_length, schema, order, aggr_scores, colors, remove: remove ?  JSON.parse(remove): [], expand: expand ? JSON.parse(expand) : [], gene_links})
 				fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/counter/update`)
 				res.status(200).send(results)
 			} else if (start) {
-				const results = await resolve_one_term({session, start, field: start_field, term: start_term, relation, limit, path_length, schema, order, aggr_scores, colors, remove: remove ?  JSON.parse(remove): [], expand: expand ? JSON.parse(expand) : [], gene_links, augment, augment_limit })
+				// console.log("ta-da!")
+				const results = await resolve_one_term({ session, start, field: start_field, term: start_term, relation, limit, path_length, schema, order, aggr_scores, colors, remove: remove ? JSON.parse(remove) : [], expand: expand ? JSON.parse(expand) : [], gene_links, augment, augment_limit })
 				fetch(`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/api/counter/update`)
 				res.status(200).send(results)
 			} else {
