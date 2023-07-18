@@ -529,7 +529,6 @@
       {
         "height": 100,
         "href": "https://www.genome.gov/Funded-Programs-Projects/Knockout-Mouse-Phenotyping-Program-KOMP2",
-        "icon": "https://www.genome.gov/sites/default/files/media/images/2022-11/KOMP_dynamic.jpg",
         "label": "KOMP",
         "props": {
           "libraries": [
