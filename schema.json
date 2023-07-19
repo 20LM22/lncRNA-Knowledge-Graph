@@ -431,10 +431,10 @@
   "header": {
     "icon": {
       "alt": "lncAnalyzr logo",
-      "favicon": "https://raw.githubusercontent.com/20LM22/KnowledgeGraphDemo/main/logo-new2.png",
+      "favicon": "https://commonfund.nih.gov/sites/default/files/CFDE_logo-color-web.png",
       "height": 60,
       "key": "lncanalyzr_logo",
-      "src": "https://raw.githubusercontent.com/20LM22/KnowledgeGraphDemo/main/logo-new2.png",
+      "src": "https://commonfund.nih.gov/sites/default/files/CFDE_logo-color-web.png",
       "width": 60
     },
     "tabs": [
